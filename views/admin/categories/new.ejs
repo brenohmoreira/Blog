@@ -1,0 +1,16 @@
+<%- include("../../partials/header.ejs"); %>
+<%- include("../../partials/navbar.ejs"); %> 
+
+<div class="form_container">
+
+    <h2> CADASTRO DE CATEGORIA </h2>
+
+    <hr>
+    
+    <form method="POST" action="/admin/categories/save">
+        <input type="text" name="title" placeholder="Define o título da categoria">
+        <button class="btn_success">  ENVIAR </button>
+    </form>
+</div>
+
+<%- include("../../partials/footer.ejs"); %> 
