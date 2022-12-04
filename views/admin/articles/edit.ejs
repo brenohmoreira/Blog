@@ -1,0 +1,38 @@
+<%- include("../../partials/header.ejs"); %>
+<%- include("../../partials/navbar.ejs"); %> 
+
+<div class="form_container">
+
+    <h2> EDIÇÃO DE ARTIGO </h2>
+
+    <hr>
+    
+    <form method="POST" action="/admin/categories/article/update" id="articleupdate_formcontainer">
+        <input type="text" name="title" placeholder="<%= article.title %>">
+        <input type="hidden" name="id" value="<%= article.id %>">
+        <!-- We can't to use article.body inside of the textarea with tinymce direct -->
+        <textarea placeholder="Reescreva o artigo aqui" name="body" id="article_update"></textarea>
+        <select name="category" id="category_select">
+            <% categories.forEach((category) => { %>
+                <% if(category.id == article.categoryId){  %>
+                    <option value="<%= category.id %>" selected> <%= category.title %> </option>
+                <% }else{ %>
+                    <option value="<%= category.id %>"> <%= category.title %> </option>
+                <% }      %>
+            <% }); %>
+        </select>
+        <button class="btn_success">  ATUALIZAR </button>
+    </form>
+</div>
+
+
+<%- include("../../partials/footer.ejs"); %> 
+
+<script src="/tinymce/tinymce.min.js"> </script>
+<script> 
+    tinymce.init({
+        language: 'pt_BR',
+        selector: "#article_update", 
+        plugins: 'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+    })
+</script> 

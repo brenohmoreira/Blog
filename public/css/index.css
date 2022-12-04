@@ -15,6 +15,29 @@ nav
     width: 100vw;
     height: 10vh;
     background-color: rgb(85, 0, 196);
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+}
+
+nav ul
+{
+    display: flex;
+    list-style: none;   
+}
+
+nav ul li a
+{
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+}
+
+nav ul li a:hover
+{
+    color: rgb(196, 196, 196);
+    text-decoration: none;
+    padding: 5px;
 }
 
 #nav_home
@@ -31,7 +54,7 @@ nav
 
 .form_container
 {
-    width: 50vh;
+    width: 50vw;
     margin: 10vh auto;
     border: 1px solid rgb(177, 177, 177);
     padding-top: 20px;
@@ -65,8 +88,8 @@ nav
 {
     width: 20em;
     height: 3em;
-    background-color: rgb(53, 0, 138);
-    border: 1px solid black;
+    background-color: rgb(38, 148, 47);
+    border: none;
     color: white;
     display: block;
     margin: 0 auto;
@@ -75,7 +98,187 @@ nav
 
 .btn_success:hover
 {
-    background-color: rgb(34, 0, 87);
+    background-color: rgb(2, 90, 14);
+    width: 25em;
     transition: .3s;
 }
 
+#container
+{
+    margin: 5em 0;
+}
+
+#container table
+{
+    background-color: rgb(240, 240, 240);  
+    margin: 0 auto;
+    width: 60vw;
+    border-spacing: 0;
+    border-collapse: collapse;
+    box-shadow: 1px 1px 1px 1px rgba(119, 119, 119, 0.356);
+}
+
+#container table th
+{
+    border: 1px solid rgb(126, 126, 126);
+
+    padding: 5px;
+}
+
+#container table .header_categories
+{
+    background-color: rgb(53, 0, 138);
+    color: white;
+}
+
+#container table .header_categories th
+{
+    border: 1px solid rgb(35, 0, 92);
+    border-bottom: rgb(126, 126, 126);
+    color: white;
+}
+
+#container table td
+{
+    text-align: center;
+}
+
+#title
+{
+    margin: 2em auto;
+}
+
+#title h2
+{
+    text-align: center;
+}
+
+#new_categorie
+{
+    width: 20em;
+    height: 3.5em;
+    display: block;
+    margin: 2em auto;
+    background-color: rgb(38, 148, 47);
+    border: none;
+    outline: none;
+    color: white;
+}
+
+#new_categorie:hover
+{
+    background-color: rgb(2, 90, 14);
+    width: 25em;
+    transition: .3s;
+}
+
+#categories_container a
+{
+    text-decoration: none;
+}
+
+.edit_delet
+{
+    width: 7em;
+    height: 2.5em;
+    color: white;
+}
+
+#edit
+{
+    background-color: rgb(228, 151, 7);
+    border: none;
+    outline: none;
+}
+
+#edit:hover
+{
+    background-color: rgb(184, 121, 6);    
+}
+
+#delet
+{
+    background-color: rgb(185, 51, 51);
+    border: none;
+    outline: none;
+}
+
+#delet:hover
+{
+    background-color: rgb(151, 44, 44);    
+} 
+
+#article_new_btn
+{
+    margin-top: 20px;
+}
+
+#articleform_container
+{
+    width: 50vw;
+}
+
+#category_label
+{
+    display: block;
+    margin: 0 auto;
+    margin-top: 1em;
+    text-align: center;
+}
+
+#category_select
+{
+    display: block;
+    margin: 1em auto;
+    height: 3em;
+    padding: 10px;
+}
+
+.card
+{
+    width: 50vw;
+    margin: 2em auto;
+    background-color: rgba(238, 238, 238, 0.781);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.233);
+}
+
+.card .title_card
+{
+    background-color: rgb(53, 0, 138);
+    color: white;
+    padding: 0.75em;
+    text-align: center;
+}
+
+.card .body_card
+{
+    padding: 0.75em;
+}
+
+.card .body_card button
+{
+    width: 14em;
+    height: 3em;
+    display: block;
+    margin: 0 auto;
+    background-color: rgb(38, 148, 47);
+    border: none;
+    color: white;
+}
+
+.card .body_card button:hover
+{
+    background-color: rgb(2, 90, 14);
+    width: 20em;
+    transition: .3s;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+#articleupdate_formcontainer button
+{
+    margin-top: 2em;
+}

@@ -1,0 +1,35 @@
+<%- include("../../partials/header.ejs"); %>
+<%- include("../../partials/navbar.ejs"); %> 
+
+<div class="form_container" id="articleform_container">
+
+    <h2> NOVO ARTIGO </h2>
+
+    <hr>
+    
+    <form method="POST" action="/admin/articles/save" id="articlewform_new">
+        <input type="text" name="title" placeholder="Defina o título do artigo">
+        <textarea placeholder="Escreva o artigo aqui" name="body" id="article"></textarea>
+        <label id="category_label"> CATEGORIAS </label>
+        <select name="category" id="category_select">
+            <% category.forEach((category) => { %>
+                <option value="<%= category.id %>"> <%= category.title %> </option>
+            <% }); %>
+        </select>
+        <button class="btn_success" id="article_new_btn">  ENVIAR </button>
+    </form>
+</div>
+
+<%- include("../../partials/footer.ejs"); %> 
+
+<!-- public preselected with src atribute -->
+<script src="/tinymce/tinymce.min.js"> </script>
+
+<!-- tinymce.init({selector: "#id of the textarea", plugins: ['plugin1 plugin2 plugin3 ...']}); -->
+<script> 
+    tinymce.init({
+        language: 'pt_BR',
+        selector: "#article", 
+        plugins: 'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+    })
+</script> 

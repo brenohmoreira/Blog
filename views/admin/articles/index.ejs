@@ -1,0 +1,62 @@
+<%- include("../../partials/header.ejs"); %>
+<%- include("../../partials/navbar.ejs"); %>
+
+<div id="container">
+
+    <div id="title">
+        <h2> ARTIGOS </h2> 
+    </div>
+
+    <table>
+        <thead class="header_categories">
+            <th> ID </th>
+            <th> Título </th>
+            <th> Slug </th>
+            <th> Categoria </th>
+            <th> Ações </th>  
+        </thead>
+        <tbody>
+            <% articles.forEach(article => { %>
+                <tr>
+                    <td> <%= article.id %> </td>
+                    <td> <%= article.title %> </td>
+                    <td> <%= article.slug %> </td>
+                    <!-- In article, use the title of the category -->
+                    <td> <%= article.category.title %> </td>
+                    <td>
+                        <button class="edit_delet" id="edit" onclick="window.location.href = 'http://localhost:8080/admin/article/edit/<%= article.id %>'"> EDITAR </button> 
+    
+                        <form method="POST" action="/articles/delete" style="display: inline;" onsubmit="confirm_delect(event, this)">
+                            <input type="hidden" value="<%= article.id %>" name="id">
+                            <button class="edit_delet" id="delet"> DELETAR </button> 
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <button id="new_categorie" onclick="window.location.href = 'http://localhost:8080/admin/articles/new'">  CRIAR UM NOVO ARTIGO </button>
+
+</div>
+
+<%- include("../../partials/footer.ejs"); %>
+
+<script>
+    function confirm_delect(event, form)
+    {
+        // Interrupt the form (prevent default) - The form not was sent
+        event.preventDefault();
+        
+        if(confirm("Do you wanna delete this category?"))
+        {
+            console.log("Deleted");
+
+            form.submit();
+        }
+        else
+        {
+            console.log("Not deleted");
+        }
+    }
+</script>

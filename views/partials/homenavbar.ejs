@@ -1,0 +1,13 @@
+<nav>
+    <div id="nav_title">
+        <a id="nav_home" href="/"> BLOG </a>
+    </div>
+
+    <div id="nav_menu">
+        <ul>
+            <% categories.forEach(category => {%>
+                <li> <a href="/category/<%= category.slug %>">  <%= category.title %> </a> </li>
+            <% }); %>
+        </ul>
+    </div>
+</nav>
