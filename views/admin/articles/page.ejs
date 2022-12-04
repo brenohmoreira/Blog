@@ -1,0 +1,21 @@
+<%- include("../../partials/header.ejs"); %>
+<%- include("../../partials/homenavbar.ejs"); %>
+
+<body>
+    <div id="home_container">
+        <% result.articles.rows.forEach(article => {%>
+
+        <div class="card">
+            <div class="title_card">
+                <h2> <%= article.title %> </h2>
+            </div>
+            <div class="body_card">
+                <button onclick="window.location.href = 'http://localhost:8080/<%= article.slug %>'">  LER </button>
+            </div>
+        </div>
+
+        <% }); %>
+    </div>
+</body>
+
+<%- include("../../partials/footer.ejs"); %>

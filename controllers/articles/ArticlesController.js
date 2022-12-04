@@ -89,4 +89,46 @@ router.post("/admin/articles/save", (req, res) => {
     
 });
 
+// Pagination
+router.get("/articles/page/:num", (req, res) => {
+    var page = req.params.num;
+    var offset = 0;
+
+    // Return all articles and the amount exists. Limit of 4 articles. Offset make the contage from ...
+    // In that exemple, we want the offset so: page 1 = offset 0, page 2 = offset 4-7
+    if(isNaN(page) || page == 1)
+    {
+        offset = 0;
+    }
+    else
+    {
+        offset = (parseInt(page) - 1) * 4;
+        // Ex: page 2: offset = (2 - 1) * 4 => offset = 4
+        // eX: page 3: offset = (3 - 1) * 4 => offset = 8
+    }
+
+    Article.findAndCountAll({limit: 4, offset: offset, order: [['id', 'DESC']]}).then(articles => {
+        // res.json(articles); -> Return all articles with json in page
+        // return count (number of articles) and rows (the articles)
+        
+        var next;
+
+        if(offset + 4 >= articles.count)
+        {
+            // Not exists more pages to display
+            next = false;
+        }
+        else
+        {
+            next = true;
+        }
+
+        var result = {next: next, articles: articles};
+
+        Category.findAll().then(categories => {
+            res.render("admin/articles/page", {result: result, categories: categories});
+        });
+    });
+});
+
 module.exports = router;
