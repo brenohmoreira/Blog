@@ -16,6 +16,13 @@
 
         <% }); %>
     </div>
+
+    <% if(slug == '') { %>
+        <div class="row" id="pag" style="display: flex; justify-content: end;">
+            <a href="/articles/page/2"> Próxima página </a>
+        </div>
+    <% } %> 
+    
 </body>
 
 <%- include("partials/footer.ejs"); %>

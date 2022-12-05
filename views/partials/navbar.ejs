@@ -1,12 +1,23 @@
 <nav>
     <div id="nav_title">
         <a id="nav_home" href="/"> BLOG </a>
+
+        <div class="listas">
+            <ul>
+                <li> <a href="/admin/categories">  CATEGORIAS </a> </li>
+                <li> <a href="/admin/articles">  ARTIGOS </a> </li>
+            </ul>
+        </div>
     </div>
 
     <div id="nav_menu">
-        <ul>
-            <li> <a href="/admin/categories">  CATEGORIAS </a> </li>
-            <li> <a href="/admin/articles">  ARTIGOS </a> </li>
-        </ul>
+        <div class="registro">
+            <div class="login">
+                <button onclick="window.location.href = 'http://localhost:8080/login'"> LOGAR </button>
+            </div>
+            <div class="register">
+                <button id="reg" onclick="window.location.href = '/admin/user/create'"> REGISTRAR </button>
+            </div>
+        </div>
     </div>
 </nav>

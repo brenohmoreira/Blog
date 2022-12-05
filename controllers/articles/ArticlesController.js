@@ -9,17 +9,22 @@ const router = express.Router();
 const Category = require("../categories/Category");
 const Article = require("./Article");
 
+// Middleware
+const admin_auth = require("../../middlewares/admin_auth");
+
 // router.[...] instead of app.[...]
 router.get("/articles", (req, res) => {
     res.send("Hello World");
 });
 
-router.get("/admin/articles", (req, res) => {
+
+// Struct: router.get("route", "middleware extern", "function res/req")
+router.get("/admin/articles", admin_auth, (req, res) => {
     // Include the model "Category" with yours respective relations // joins
     Article.findAll({ include: [{model: Category}]}).then(articles => { res.render("admin/articles/index", {articles: articles}) });
 });
 
-router.get("/admin/article/edit/:id", (req, res) => {
+router.get("/admin/article/edit/:id", admin_auth, (req, res) => {
     var id = req.params.id;
 
     if(!isNaN(id))
@@ -36,7 +41,7 @@ router.get("/admin/article/edit/:id", (req, res) => {
     }
 });
 
-router.post("/admin/categories/article/update", (req, res) => {
+router.post("/admin/categories/article/update", admin_auth, (req, res) => {
     var id = req.body.id;
     var title = req.body.title;
     var body = req.body.body;
@@ -45,7 +50,7 @@ router.post("/admin/categories/article/update", (req, res) => {
     Article.update({title: title, body: body, slug: slugify(title), categoryId: category_id}, {where: {id: id}}).then(() => { res.redirect("/admin/articles")});
 });
 
-router.get("/admin/articles/new", (req, res) => {
+router.get("/admin/articles/new", admin_auth, (req, res) => {
     Category.findAll().then(category => {
         res.render("admin/articles/new", {category: category});
     });
@@ -73,7 +78,7 @@ router.post("/articles/delete", (req, res) => {
     }
 });
 
-router.post("/admin/articles/save", (req, res) => {
+router.post("/admin/articles/save", admin_auth, (req, res) => {
     var id_category = req.body.category;
     var body = req.body.body;
     var title = req.body.title;
@@ -110,7 +115,7 @@ router.get("/articles/page/:num", (req, res) => {
     Article.findAndCountAll({limit: 4, offset: offset, order: [['id', 'DESC']]}).then(articles => {
         // res.json(articles); -> Return all articles with json in page
         // return count (number of articles) and rows (the articles)
-        
+
         var next;
 
         if(offset + 4 >= articles.count)
@@ -123,7 +128,7 @@ router.get("/articles/page/:num", (req, res) => {
             next = true;
         }
 
-        var result = {next: next, articles: articles};
+        var result = {next: next, articles: articles, page: parseInt(page)};
 
         Category.findAll().then(categories => {
             res.render("admin/articles/page", {result: result, categories: categories});

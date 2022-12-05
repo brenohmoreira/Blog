@@ -1,13 +1,21 @@
 <nav>
     <div id="nav_title">
         <a id="nav_home" href="/"> BLOG </a>
+
+        <form method="post" action="/category">
+            <select name="title">
+                <% categories.forEach(category => {%>
+                    <option> <%= category.title %> </option>
+                <% }); %>
+            </select>
+
+            <button> Enviar </button> 
+        </form>
     </div>
 
-    <div id="nav_menu">
-        <ul>
-            <% categories.forEach(category => {%>
-                <li> <a href="/category/<%= category.slug %>">  <%= category.title %> </a> </li>
-            <% }); %>
-        </ul>
+    <div id="nav_menu_nv">
+        <div class="login">
+            <button onclick="window.location.href = 'http://localhost:8080/login'"> LOGAR </button>
+        </div>
     </div>
 </nav>

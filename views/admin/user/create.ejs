@@ -1,0 +1,24 @@
+<%- include("../../partials/header.ejs"); %>
+<%- include("../../partials/navbar.ejs"); %> 
+
+<div id="register_container">
+    <div id="form_register">
+        <form method="post" action="/user/create">
+            <div id="title_rg">
+                <h2> REGISTRO </h2>
+            </div>
+            <label> Digite seu email </label>
+            <input type="text" name="email" placeholder="Digite o e-mail">
+            <label> Digite seu username </label>
+            <input type="text" name="username" placeholder="Digite o username">
+            <label> Digite sua senha </label>
+            <input type="password" name="password" placeholder="Digite a senha">
+            <label> Confirme sua senha </label>
+            <input type="password" name="confirm_password" placeholder="Confirme a senha"> 
+            <button> ENVIAR </button>
+        </form>
+    </div>
+</div>
+
+<%- include("../../partials/footer.ejs"); %> 
+

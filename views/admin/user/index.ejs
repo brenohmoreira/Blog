@@ -1,0 +1,31 @@
+<%- include("../../partials/header.ejs"); %>
+<%- include("../../partials/navbar.ejs"); %> 
+
+<div id="container">
+
+    <div id="title">
+        <h2> USUÁRIOS </h2> 
+    </div>
+
+    <table>
+        <thead class="header_categories">
+            <th> ID </th>
+            <th> E-mail </th>
+            <th> Username </th>
+        </thead>
+        <tbody>
+            <!-- For each information in array "all_categories", put it in variable "category" -->
+            <% users.forEach(user => { %>
+                <tr>
+                    <td> <%= user.id %> </td>
+                    <td> <%= user.email %> </td>
+                    <td> <%= user.username %> </td>
+                </tr>
+            <% }) %> 
+        </tbody>
+    </table>
+
+    <button id="new_categorie" onclick="window.location.href = 'http://localhost:8080/admin/user/create'">  CRIAR UM NOVO USUARIO </button>
+</div>
+
+<%- include("../../partials/footer.ejs"); %>
