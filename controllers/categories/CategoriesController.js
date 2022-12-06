@@ -18,10 +18,10 @@ router.get("/categories", (req, res) => {
 });
 
 router.get("/admin/categories", admin_auth, (req, res) => {
-    
+    var authenticate = req.session.user;
     // Find all informations of the table "Category", put it in variable "categories" and, if successfully, render the page "index" with the array "all_categories" equal the array "categories"
     Category.findAll().then(categories => {
-        res.render("admin/categories/index", {all_categories: categories});
+        res.render("admin/categories/index", {all_categories: categories, authenticate: authenticate});
     });
 
 });
@@ -30,7 +30,9 @@ router.get("/admin/categories/new", admin_auth, (req, res) => {
     // res.send("Route to create new categories");
 
     // Folder "views" is preselected by express
-    res.render("admin/categories/new");
+    var authenticate = req.session.user;
+
+    res.render("admin/categories/new", {authenticate: authenticate});
 });
 
 // Method "post" to work with forms
@@ -84,6 +86,7 @@ router.post("/categories/delete", (req, res) => {
 
 router.get("/admin/categories/edit/:id", admin_auth, (req, res) => {
     var id = req.params.id;
+    var authenticate = req.session.user;
 
     if(isNaN(id))
     {
@@ -95,7 +98,7 @@ router.get("/admin/categories/edit/:id", admin_auth, (req, res) => {
         Category.findByPk(id).then((category) => {
             if(category != undefined)
             {
-                res.render("admin/categories/edit", {category: category});
+                res.render("admin/categories/edit", {category: category, authenticate: authenticate});
             }
             else
             {

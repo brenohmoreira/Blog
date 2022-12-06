@@ -24,7 +24,7 @@ app.use(body_parser.json());
 // Max age is the life of the cookie to identify the session
 app.use(session({
     secret: "bjk!@045812mbnasgkjaol",
-    cookie: { maxAge: 300000 }
+    cookie: { maxAge: 8640000 }
 }));
 
 connection.authenticate().then(() => console.log('The connection was a success')).catch((error) => console.log('There was a failure in the database connection process: ' + error));
@@ -37,23 +37,25 @@ app.use("/", usersController);
 
 app.get("/", (req, res) => 
 {
+    var authenticate = req.session.user;
     var slug = '';
     // Order of the id desc
     Article.findAll({order: [['id','DESC']], limit: 4}).then((articles) => {
         Category.findAll().then((categories) => {
-            res.render("index", {articles: articles, categories: categories, slug: slug});
+            res.render("index", {articles: articles, categories: categories, slug: slug, authenticate: authenticate});
         })
     });
 })
 
 app.get("/:slug", (req, res) => {
     var slug = req.params.slug;
+    var authenticate = req.session.user;
 
     Article.findOne({where: {slug: slug}}).then((article) => {
         if(article != undefined)
         {
             Category.findAll().then((categories) => {
-                res.render("article", {article: article, categories: categories});
+                res.render("article", {article: article, categories: categories, authenticate: authenticate});
             });
         }
         else
@@ -75,6 +77,7 @@ app.post("/category", (req, res) => {
 
 app.get("/category/:slug", (req, res) => {
     var slug = req.params.slug;
+    var authenticate = req.session.user;
 
     // Find categories where slug: slug of the param and include all articles of the model Article that are relates with finded category
     Category.findOne({ where: { slug: slug }, include: [{model: Article}]}).then(category => {
@@ -84,7 +87,7 @@ app.get("/category/:slug", (req, res) => {
             // category.articles (=articles) are all articles of the category finded
             Category.findAll().then((categories) => {
                 // Join of the category and article (category and your articles)
-                res.render("index", {articles: category.articles, categories: categories, slug: slug});
+                res.render("index", {articles: category.articles, categories: categories, slug: slug, authenticate: authenticate});
             });
         }
         else

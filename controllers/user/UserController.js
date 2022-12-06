@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("./User");
+const Category = require('../categories/Category');
 
 // To make hash in informations of the users. It is like with cryptography, but is irreversible
 const bcrypt = require("bcryptjs");
@@ -20,7 +21,9 @@ router.get("/admin/user", admin_auth, (req, res) => {
 });
 
 router.get("/admin/user/create", admin_auth, (req, res) => {
-    res.render("admin/user/create");
+    var authenticate = req.session.user;
+
+    res.render("admin/user/create", {authenticate: authenticate});
 });
 
 router.post("/user/create", (req, res) => {
@@ -63,7 +66,12 @@ router.post("/user/create", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    res.render("admin/user/login");
+
+    var authenticate = req.session.user;
+
+    Category.findAll().then(categories => {
+        res.render("admin/user/login", {categories: categories, authenticate: authenticate});
+    });
 });
 
 router.post("/login/authenticate", (req, res) => {

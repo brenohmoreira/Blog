@@ -9,13 +9,17 @@
                 <% }); %>
             </select>
 
-            <button> Enviar </button> 
+            <button> FILTRAR </button> 
         </form>
     </div>
 
     <div id="nav_menu_nv">
         <div class="login">
-            <button onclick="window.location.href = 'http://localhost:8080/login'"> LOGAR </button>
+            <% if(authenticate == undefined){%>
+                <button onclick="window.location.href = 'http://localhost:8080/login'"> LOGAR </button>
+            <% } else {%>
+                <button onclick="window.location.href = 'http://localhost:8080/admin/articles'"> ADMIN: <%= authenticate.username.toUpperCase() %> </button>
+            <% }%>
         </div>
     </div>
 </nav>

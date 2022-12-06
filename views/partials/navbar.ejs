@@ -13,10 +13,10 @@
     <div id="nav_menu">
         <div class="registro">
             <div class="login">
-                <button onclick="window.location.href = 'http://localhost:8080/login'"> LOGAR </button>
+                <button onclick="window.location.href = 'http://localhost:8080/admin/articles'"> ADMIN: <%= authenticate.username.toUpperCase() %> </button>
             </div>
             <div class="register">
-                <button id="reg" onclick="window.location.href = '/admin/user/create'"> REGISTRAR </button>
+                <button id="reg" onclick="window.location.href = '/admin/user/create'"> REGISTRAR USER </button>
             </div>
         </div>
     </div>

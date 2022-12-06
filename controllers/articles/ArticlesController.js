@@ -21,17 +21,20 @@ router.get("/articles", (req, res) => {
 // Struct: router.get("route", "middleware extern", "function res/req")
 router.get("/admin/articles", admin_auth, (req, res) => {
     // Include the model "Category" with yours respective relations // joins
-    Article.findAll({ include: [{model: Category}]}).then(articles => { res.render("admin/articles/index", {articles: articles}) });
+    var authenticate = req.session.user;
+
+    Article.findAll({ include: [{model: Category}]}).then(articles => { res.render("admin/articles/index", {articles: articles, authenticate: authenticate}) });
 });
 
 router.get("/admin/article/edit/:id", admin_auth, (req, res) => {
     var id = req.params.id;
+    var authenticate = req.session.user;
 
     if(!isNaN(id))
     {
         Article.findByPk(id).then(article => {
             Category.findAll().then(categories => {
-                res.render("admin/articles/edit", {article: article, categories: categories});
+                res.render("admin/articles/edit", {article: article, categories: categories, authenticate: authenticate});
             });
         });
     }
@@ -51,8 +54,10 @@ router.post("/admin/categories/article/update", admin_auth, (req, res) => {
 });
 
 router.get("/admin/articles/new", admin_auth, (req, res) => {
+    var authenticate = req.session.user;
+
     Category.findAll().then(category => {
-        res.render("admin/articles/new", {category: category});
+        res.render("admin/articles/new", {category: category, authenticate});
     });
 });
 
@@ -98,6 +103,7 @@ router.post("/admin/articles/save", admin_auth, (req, res) => {
 router.get("/articles/page/:num", (req, res) => {
     var page = req.params.num;
     var offset = 0;
+    var authenticate = req.session.user;
 
     // Return all articles and the amount exists. Limit of 4 articles. Offset make the contage from ...
     // In that exemple, we want the offset so: page 1 = offset 0, page 2 = offset 4-7
@@ -131,7 +137,7 @@ router.get("/articles/page/:num", (req, res) => {
         var result = {next: next, articles: articles, page: parseInt(page)};
 
         Category.findAll().then(categories => {
-            res.render("admin/articles/page", {result: result, categories: categories});
+            res.render("admin/articles/page", {result: result, categories: categories, authenticate: authenticate});
         });
     });
 });
